@@ -6,6 +6,19 @@ from flask import Flask, jsonify, request
 from transformaciones import DESTINOS_PERMITIDOS, ErrorValidacion, transformar
 
 app = Flask(__name__)
+
+# Hoppscotch en el navegador necesita una respuesta CORS también para OPTIONS.
+# Se autoriza únicamente el origen de Hoppscotch; JWT sigue siendo obligatorio.
+@app.after_request
+def permitir_hoppscotch(respuesta):
+    if request.headers.get("Origin") == "https://hoppscotch.io":
+        respuesta.headers["Access-Control-Allow-Origin"] = "https://hoppscotch.io"
+        respuesta.headers["Vary"] = "Origin"
+        respuesta.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+        respuesta.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        respuesta.headers["Access-Control-Max-Age"] = "600"
+    return respuesta
+
 JWT_SECRET = os.environ.get("JWT_SECRET", "clave_temporal_solo_desarrollo_no_produccion_2026")
 USUARIO = os.environ.get("HOSPITAL_USER", "hospital")
 PASSWORD = os.environ.get("HOSPITAL_PASSWORD", "1234")
