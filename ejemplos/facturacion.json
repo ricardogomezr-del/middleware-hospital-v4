@@ -1,0 +1,7 @@
+{
+  "paciente": 205,
+  "nombre": "Paciente de prueba",
+  "destino": "FACTURACION",
+  "concepto": "CONSULTA MEDICA",
+  "valor": 85000
+}

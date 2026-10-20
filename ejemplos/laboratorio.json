@@ -1,0 +1,7 @@
+{
+  "paciente": 101,
+  "nombre": "Paciente de prueba",
+  "destino": "LABORATORIO",
+  "examen": "HEMOGRAMA",
+  "urgente": false
+}
